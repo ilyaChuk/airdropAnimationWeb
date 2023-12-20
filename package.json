@@ -1,0 +1,28 @@
+{
+  "name": "airdrop_animation",
+  "version": "0.1.3",
+  "description": "Анимированный эффект как в airDrop из IOS17",
+  "main": "airdrop_animation.mjs",
+  "module": "airdrop_animation.es.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ilyaChuk/airdropAnimationWeb"
+  },
+  "keywords": [
+    "apple"
+  ],
+  "author": "ilyaChuk",
+  "license": "ISC",
+  "dependencies": {
+    "html2canvas": "^1.4.1",
+    "three": "^0.159.0"
+  },
+  "devDependencies": {
+    "rollup-plugin-terser": "^7.0.2",
+    "terser": "^5.26.0",
+    "vite": "^5.0.10"
+  }
+}

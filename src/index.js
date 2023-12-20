@@ -1,9 +1,25 @@
+import html2canvas from 'html2canvas';
+import * as THREE from 'three';
+import './style.css'
+
+
+
+/**
+ * AirDrop animation settings.
+ * @typedef {Object} Settings
+ * @property {string} frameElementSelector - the selector of the element that the screenshot will be taken from.
+ * @property {Object} performance - performance settings.
+ * @property {Object} performance.blur - blur performance settings. initializing only in first call of airDrop function 
+ * @property {string} performance.blur._directions - number of radial blur directions. must be a string of float
+ * @property {string} performance.blur._quality - radial blur quality. must be a string of float
+ * @property {number} performance.maxPixelRatio
+ */
 const settings = {
 	frameElementSelector: '#content',
 	performance: {
 		blur: {
-			_directions: '13.0',
-			_quality: '4.0',
+			directions: '13.0',
+			quality: '4.0',
 		},
 		maxPixelRatio: Infinity,
 	},
@@ -14,8 +30,15 @@ let animateProgress = 0;
 let animationFrameId = null;
 let pratio = Math.min(window.devicePixelRatio, settings.performance.maxPixelRatio)
 
-// Function to start the airDrop animation
-function airDrop() {
+/**
+ * Function to start the airDrop animation
+ * @param {Settings} data - animations settings object.
+ */
+export default function airDrop(data) {
+	if (data) {
+		settings = data
+	}
+	pratio = Math.min(window.devicePixelRatio, settings.performance.maxPixelRatio)
 	html2canvas(document.querySelector(settings.frameElementSelector)).then(canvas => {
 		if (!renderer) {
 			initThreeJS(canvas);
@@ -52,7 +75,7 @@ function setupRenderer() {
 	renderer.setPixelRatio(window.devicePixelRatio);
 	renderer.setSize(window.innerWidth, window.innerHeight);
 
-	const canvasContainer = document.getElementById('canvas-container');
+	const canvasContainer = document.getElementsByClassName('airdropCanvasContainer')[0];
 	canvasContainer.innerHTML = '';
 	canvasContainer.appendChild(renderer.domElement);
 }
